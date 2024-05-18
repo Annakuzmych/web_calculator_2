@@ -1,0 +1,49 @@
+<!-- convert_numbers.html -->
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'profile.css' %}">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="{% static 'number_converter.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Converter</title>
+</head>
+<!-- convert_numbers.html -->
+<body>
+    {% include 'toolbar.html' %}
+    <div class="converter-container">
+        <h2>Number Converter</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="number">Enter number:</label>
+                <input type="text" id="number" name="number" required><br><br>
+            </div>
+            <div class="form-group">
+                <label for="from_base">From Base:</label>
+                <select id="from_base" name="from_base">
+                    <option value="2">Binary</option>
+                    <option value="8">Octal</option>
+                    <option value="10" selected>Decimal</option>
+                    <option value="16">Hexadecimal</option>
+                </select><br><br>
+            </div>
+            <div class="form-group">
+                <label for="to_base">To Base:</label>
+                <select id="to_base" name="to_base">
+                    <option value="2">Binary</option>
+                    <option value="8">Octal</option>
+                    <option value="10">Decimal</option>
+                    <option value="16" selected>Hexadecimal</option>
+                </select><br><br>
+            </div>
+            <button type="submit">Convert</button>
+        </form>
+        {% if converted_number %}
+            <p>Converted Number: {{ converted_number }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

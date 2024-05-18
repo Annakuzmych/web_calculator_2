@@ -1,0 +1,47 @@
+/* styles.css */
+
+.vertical-toolbar {
+    background-color: #f0f0f0;
+    width: 200px; /* Змініть ширину за потребою */
+    padding: 20px;
+}
+
+.vertical-toolbar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.vertical-toolbar li {
+    margin-bottom: 10px;
+}
+
+.vertical-toolbar a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+.vertical-toolbar a:hover {
+    background-color: #ccc;
+}
+/* Стилі для тулбару */
+.toolbar {
+    float: left; /* Розмістіть тулбар ліворуч */
+    width: 200px;
+    /* Інші стилі тулбару */
+}
+
+/* Стилі для блоку інформації про користувача */
+.profile-container {
+    margin-left: 220px; /* Забезпечте відступ від тулбару */
+    /* Інші стилі для контейнера користувача */
+}
+.iconka{
+    margin-left: 50px;
+    align-items: center;
+    color: rgb(157, 157, 248); /* Змінює колір іконки на синій */
+    font-size: 50px; /* Змінює розмір іконки на 24 пікселі */
+  }

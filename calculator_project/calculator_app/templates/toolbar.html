@@ -1,0 +1,15 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<div class="vertical-toolbar">
+    <ul>
+        <i class="fa fa-calculator iconka" aria-hidden="true"></i>
+        <li><a href="{% url 'calculator' %}">Калькулятор (Базовий)</a></li>
+        <li><a href="{% url 'number_converter' %}">Реверс чисел</a></li>
+        <li><a href="{% url 'history_view' %}">Історія обрахунків</a></li>
+        <li><a href="{% url 'profile' %}">Мій профіль</a></li>
+        <li><a href="{% url 'home' %}">home</a></li>
+        <li><a href="{% url 'chat' %}">chat</a></li>
+        <li><a href="{% url 'online_users' %}">online_users</a></li>
+    </ul>
+</div>

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'toolbar.html' %}
+<link rel="stylesheet" href="{% static 'profile.css' %}">
+<link rel="stylesheet" href="{% static 'styles.css' %}">
+<div class="main">
+    <h2>Welcome to our Calculator!</h2>
+    <p>Did you know?</p>
+    <ul>
+        <li>The first mechanical calculator, called the Pascaline, was invented by Blaise Pascal in 1642.</li>
+        <li>The modern electronic calculator was developed in the 1960s.</li>
+        <li>Calculators were originally large and expensive, but advancements have made them compact and affordable today.</li>
+        <li>Some calculators have specialized functions for engineering, finance, and scientific calculations.</li>
+        <li>The first pocket-sized calculator was introduced by Texas Instruments in 1972.</li>
+    </ul>
+    <div class="profile-actions">
+    <div class="action-box">
+        <a href="{% url 'login' %}" class="action-link">login</a>
+    </div>
+    <div class="action-box">
+        <a href="{% url 'register' %}" class="action-link delete-link">register</a>
+    </div>
+    
+</div>
+</div>
+
+{% endblock %}

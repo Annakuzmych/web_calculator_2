@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'toolbar.html' %}
+<link rel="stylesheet" href="{% static 'profile.css' %}">
+<link rel="stylesheet" href="{% static 'styles.css' %}">
+<div class="ekran">
+    <div class="main">
+        <div class="profile-details">
+            <h2>Profile</h2>
+            <table class="profile-table">
+                <tr>
+                    <td><strong>Username:</strong></td>
+                    <td>{{ user.username }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Email:</strong></td>
+                    <td>{{ user.email }}</td>
+                </tr>
+            </table>
+            <div class="profile-actions">
+                <div class="action-box">
+                    <a href="{% url 'edit_profile' %}" class="action-link">Edit Profile</a>
+                </div>
+                <div class="action-box">
+                    <a href="{% url 'logout' %}" class="action-link">Log Out</a>
+                </div>
+                <div class="action-box">
+                    <a href="{% url 'delete_profile' %}" class="action-link delete-link">Delete Account</a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

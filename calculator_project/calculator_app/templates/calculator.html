@@ -1,0 +1,85 @@
+<!-- calculator.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="{% static 'profile.css' %}">
+    <link rel="stylesheet" href="{% static 'calculator.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <script>
+        function handleOperatorChange() {
+            var operator = document.getElementById("id_operator").value;
+            var number2Input = document.getElementById("id_number2");
+            if (operator === "sin" || operator === "cos" || operator === "tan") {
+                number2Input.disabled = true;
+            } else {
+                number2Input.disabled = false;
+            }
+        }
+
+        // Функція для відправки даних через WebSocket
+        function sendData() {
+            var number1 = document.getElementById("id_number1").value;
+            var operator = document.getElementById("id_operator").value;
+            var number2 = document.getElementById("id_number2").value;
+
+            // Створення об'єкту з даними для відправки на сервер
+            var data = {
+                number1: number1,
+                operator: operator,
+                number2: number2
+            };
+
+            // Відправка даних на сервер через WebSocket
+            var socket = new WebSocket('ws://127.0.0.1:8000/ws/calculator/');
+            socket.onopen = function(event) {
+                console.log('Підключено до сервера');
+                socket.send(JSON.stringify(data)); // Відправляємо дані на сервер
+            };
+
+            // Отримання відповіді від сервера
+            socket.onmessage = function(event) {
+                var result = JSON.parse(event.data).result;
+                console.log('Результат від сервера:', result);
+
+                // Відображення результату на сторінці
+                document.getElementById('result').innerText = 'Result: ' + result;
+            };
+        }
+    </script>
+</head>
+<body>
+    {% include 'toolbar.html' %}
+    <div class="calculator-container">
+        <h2>Calculator</h2>
+        <div id="result"></div> <!-- Місце для відображення результату -->
+        <form onsubmit="event.preventDefault(); sendData();" id="calculator-form">
+            <div class="form-group">
+                <label for="id_number1">Number 1:</label>
+                <input type="text" id="id_number1" name="number1">
+            </div>
+            <div class="form-group">
+                <label for="id_operator">Operator:</label>
+                <select id="id_operator" name="operator" onchange="handleOperatorChange()">
+                    <option value="add">+</option>
+                    <option value="subtract">-</option>
+                    <option value="multiply">*</option>
+                    <option value="divide">/</option>
+                    <option value="sin">sin</option>
+                    <option value="cos">cos</option>
+                    <option value="tan">tan</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_number2">Number 2:</label>
+                <input type="text" id="id_number2" name="number2">
+            </div>
+            <button type="submit">Calculate</button>
+        </form>
+    </div>
+</body>
+</html>
+
+

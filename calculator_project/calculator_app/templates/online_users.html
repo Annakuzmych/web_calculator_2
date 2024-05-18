@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Users</title>
+    <script>
+        // Створюємо WebSocket з'єднання
+        var socket = new WebSocket('ws://{{ request.get_host }}/online_users/');
+        console.log('WebSocket connection opened.');
+        
+        // Обробник подій для отриманих повідомлень
+        socket.onmessage = function(event) {
+            var data = JSON.parse(event.data);
+            var onlineUsersList = document.getElementById('online-users-list');
+            onlineUsersList.innerHTML = ''; // Очищаємо список перед оновленням
+
+            // Додаємо кожного онлайн користувача до списку
+            data.online_users.forEach(function(user) {
+                var listItem = document.createElement('li');
+                listItem.textContent = user;
+                onlineUsersList.appendChild(listItem);
+            });
+        };
+
+        // Обробник подій для закриття з'єднання
+        socket.onclose = function(event) {
+            console.log('WebSocket connection closed.');
+        };
+    </script>
+</head>
+<body>
+    <h1>Online Users</h1>
+    <ul id="online-users-list">
+        <!-- Сюди буде виводитися список онлайн користувачів -->
+    </ul>
+</body>
+</html>
+
+
+
+
+

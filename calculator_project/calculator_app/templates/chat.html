@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'profile.css' %}">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <title>Chat Room</title>
+</head>
+<body>
+    <select id="room_name">
+        <option value="general">Загальний чат</option>
+        <option value="topic1">Топік 1</option>
+        <option value="topic2">Топік 2</option>
+        <!-- Додайте інші топіки за потреби -->
+      </select>
+    <div class="chat">
+        <!-- Тут будуть відображатися повідомлення -->
+    </div>
+    <input id="chat-message-input" type="text" placeholder="Введіть ваше повідомлення тут...">
+    <button id="send-message-btn">Надіслати</button>
+
+    <!-- Вставте ім'я користувача у приховане поле -->
+    <input type="hidden" id="user-name" value="{{ username }}">
+    
+    <script>
+        var roomNameSelect = document.getElementById('room_name');
+        var room_name = roomNameSelect.value;
+        var chatSocket = new WebSocket('ws://' + window.location.host + '/chat/'+ room_name + '/');
+        var userName = document.getElementById('user-name').value;
+        function updateWebSocketConnection() {
+            chatSocket.close(); // Закрити поточне WebSocket-з'єднання
+            room_name = roomNameSelect.value; // Отримати нове значення кімнати
+            chatSocket = new WebSocket('ws://' + window.location.host + '/chat/'+ room_name + '/'); // Відкрити нове WebSocket-з'єднання
+            chatSocket.onmessage = function(e) {
+                var data = JSON.parse(e.data);
+                var message = data['message'];
+                var username = data['username'];
+                var chatDiv = document.querySelector('.chat');
+                chatDiv.innerHTML += '<p><strong>' + username + ':</strong> ' + message + '</p>';
+            };
+        }
+        async function updateChatForRoom(roomName) {
+            var response = await fetch('/get-messages-for-room/' + roomName + '/');
+            var messages = await response.json();
+            var chatDiv = document.querySelector('.chat');
+            chatDiv.innerHTML = ''; // Очистіть поточний чат
+            messages.forEach(function(msg) {
+                chatDiv.innerHTML += '<p><strong>' + msg.username + ':</strong> ' + msg.message + '</p>';
+            });
+        }
+        chatSocket.onmessage = function(e) {
+            var data = JSON.parse(e.data);
+            var message = data['message'];
+            var username = data['username'];
+            var chatDiv = document.querySelector('.chat');
+            chatDiv.innerHTML += '<p><strong>' + username + ':</strong> ' + message + '</p>';
+        };
+
+        roomNameSelect.onchange = function() {
+            var roomName = roomNameSelect.value;
+            updateWebSocketConnection(); // Викликати функцію оновлення при зміні вибраної кімнати
+            updateChatForRoom(roomName);
+        };
+        document.querySelector('#chat-message-input').focus();
+        document.querySelector('#chat-message-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // При натисканні на Enter
+                sendMessage();
+            }
+        };
+
+        document.querySelector('#send-message-btn').onclick = function() {
+            sendMessage();
+        };
+
+        function sendMessage() {
+            var messageInputDom = document.getElementById('chat-message-input');
+            var message = messageInputDom.value;
+            var username = document.getElementById('user-name').value;
+            var roomName = document.getElementById('room_name').value;
+            chatSocket.send(JSON.stringify({
+                'message': message,
+                'username': username, // Додаємо ім'я користувача разом з повідомленням
+                'room_name': roomName
+            }));
+            messageInputDom.value = '';
+        }
+
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+

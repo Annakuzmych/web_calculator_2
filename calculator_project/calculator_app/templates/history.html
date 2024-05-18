@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'profile.css' %}">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User History</title>
+</head>
+<body>
+    {% include 'toolbar.html' %}
+    <div class="main">
+    <h1>User History</h1>
+    <div class="profile-actions">
+        <div class="action-box">
+            <a href="{% url 'clear_history' %}" class="action-link delete-link">Delete history</a>
+        </div>
+        
+    </div>
+
+    <h2 id="simple_operations">Simple Operations:</h2>
+    <ul>
+        {% for operation in simple_operations %}
+            <li>{{ operation.expression }} = {{ operation.result }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2 id="number_conversions">Number Conversions:</h2>
+    <ul>
+        {% for conversion in number_conversions %}
+            <li>{{ conversion.number }} (from base {{ conversion.from_base }}) = {{ conversion.result }} (to base {{ conversion.to_base }})</li>
+        {% endfor %}
+    </ul></div>
+</body>
+</html>
+

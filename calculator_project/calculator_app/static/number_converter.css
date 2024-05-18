@@ -1,0 +1,60 @@
+/* calculator.css */
+
+/* Form container */
+.converter-container {
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form elements */
+.converter-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.converter-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.converter-container form .form-group {
+    margin-bottom: 15px;
+}
+
+.converter-container form label {
+    font-weight: bold;
+}
+
+.converter-container form input[type="text"],
+.converter-container form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.converter-container form button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #9fa9e0;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.converter-container form button[type="submit"]:hover {
+    background-color: #9cb7f1;
+}
+
+/* Result */
+.converter-container p {
+    margin-top: 20px;
+    font-weight: bold;
+    text-align: center;
+}

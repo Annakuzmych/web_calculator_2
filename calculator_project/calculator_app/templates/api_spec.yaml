@@ -1,0 +1,190 @@
+openapi: "3.0.0"
+info:
+  title: "Calculator App API"
+  description: "API documentation for the calculator application"
+  version: "1.0.0"
+paths:
+  /register/:
+    post:
+      summary: "User Registration"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  format: username
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+                gender:
+                  type: string
+                  enum: ["M", "F", "O"]
+                date_of_birth:
+                  type: string
+                  format: date
+      responses:
+        200:
+          description: "User registered successfully"
+  /login/:
+    post:
+      summary: "User Login"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+      responses:
+        200:
+          description: "User logged in successfully"
+  /calculator/:
+    post:
+      summary: "Perform Calculation"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                number1:
+                  type: number
+                operator:
+                  type: string
+                  enum: ["+", "-", "*", "/", "sqrt", "sin", "cos", "tan", "%"]
+                number2:
+                  type: number
+      responses:
+        200:
+          description: "Calculation performed successfully"
+  /number_converter/:
+    post:
+      summary: "Convert Number"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                number:
+                  type: string
+                from_base:
+                  type: integer
+                to_base:
+                  type: integer
+      responses:
+        200:
+          description: "Number converted successfully"
+  /history/:
+    get:
+      summary: "View Calculation and Conversion History"
+      responses:
+        200:
+          description: "History retrieved successfully"
+  /edit_profile/:
+    patch:
+      summary: "Edit User Profile"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+                gender:
+                  type: string
+                  enum: ["M", "F", "O"]
+                date_of_birth:
+                  type: string
+                  format: date
+      responses:
+        200:
+          description: "User profile edited successfully"
+  /logout/:
+    post:
+      summary: "Logout User"
+      responses:
+        200:
+          description: "User logged out successfully"
+  /delete_profile/:
+    delete:
+      summary: "Delete User Profile"
+      responses:
+        200:
+          description: "User profile deleted successfully"
+  /clear_history/:
+    delete:
+      summary: "Clear History"
+      responses:
+        200:
+          description: "History cleared successfully"
+definitions:
+  ProUser:
+    type: object
+    properties:
+      id:
+        type: integer
+      email:
+        type: string
+        format: email
+      gender:
+        type: string
+        enum: ["M", "F", "O"]
+      date_of_birth:
+        type: string
+        format: date
+  CalculationHistory:
+    type: object
+    properties:
+      id:
+        type: integer
+      user:
+        $ref: "#/definitions/ProUser"
+      expression:
+        type: string
+      result:
+        type: string
+      date_created:
+        type: string
+        format: datetime
+  ConversionHistory:
+    type: object
+    properties:
+      id:
+        type: integer
+      user:
+        $ref: "#/definitions/ProUser"
+      number:
+        type: string
+      from_base:
+        type: integer
+      to_base:
+        type: integer
+      result:
+        type: string
+      date_created:
+        type: string
+        format: datetime

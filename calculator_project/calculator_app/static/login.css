@@ -1,0 +1,98 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    background-color: #e6e9f9;
+    border-radius: 10px;
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 400px;
+  }
+  
+  .login-title {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    color: #336699;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .us-container{
+    background: white;
+    box-shadow: 0 0 2em #e6e9f9;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    border-radius: 20px;
+    color: #4d4d4d;
+  }
+  .us-container input {
+    outline: none;
+    border: none;
+  }
+  .password {
+    background: white;
+    box-shadow: 0 0 2em #e6e9f9;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    border-radius: 20px;
+    color: #4d4d4d;
+  }
+  .password input {
+    outline: none;
+    border: none;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .form-group input {
+    width: 300px;
+    height: 40px;
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 4px;
+  }
+  .password input:hover {
+    border-bottom: 2px solid #336699; /* Bottom underline color */
+  }
+  .us-container input:hover {
+    border-bottom: 2px solid #336699; /* Bottom underline color */
+  }
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  button[type="submit"] {
+    width: 150px;
+    height: 40px;
+    font-size: 18px;
+    background-color: #336699; /* Button color remains the same */
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #245588;
+  }
+  
+  button[type="submit"]:focus {
+    outline: none;
+  }
+  
